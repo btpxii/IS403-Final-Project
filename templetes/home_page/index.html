@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container">
+                <div class="masthead-subheading">Welcome to our Projec!</div>
+                <div class="masthead-heading text-uppercase">We make it easier to rank movies</div>
+                <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="{% url 'list' %}">Show Movies</a>
+            </div>
+        </header>
+         <!-- Footer-->
+{% endblock %}    
