@@ -13,6 +13,7 @@ class actor(models.Model):
         return '%s %s' % (self.first_name, self.last_name)     
     def __str__(self):
         return (self.full_name)
+   
         
 class movie(models.Model):
     tile = models.CharField(max_length = 200)
