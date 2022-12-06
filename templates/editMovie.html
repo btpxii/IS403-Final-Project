@@ -1,0 +1,61 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+    <form class="form-group" method="POST">
+        {% csrf_token %}
+        <label for="movie_title">Title</label>
+        <input class = "form-control" type="text" id='movie_title' name='movie_title' value="{{ movie.movie_title }}" required>
+        <label for="genre">Genre</label>
+        <select class = "form-control" type="text" id='genre' name='genre' multiple>
+            {% for genre in genres %}
+                {% if genre in movie.genre.all %}
+                    <option value="{{genre.id}}" selected>{{genre.genre_name}}</option>
+                {% else %}
+                    <option value="{{genre.id}}">{{genre.genre_name}}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <label for="rating">Rating</label>
+        <select class = "form-control" type="text" id='rating' name='rating'>
+            {% for rating in ratings %}
+                {% if movie.rating == rating %}
+                    <option value="{{rating.id}}" selected>{{rating.rating_name}}</option>
+                {% else %}
+                    <option value="{{rating.id}}">{{rating.rating_name}}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+        <label>Runtime</label><br>
+        <input id='runtime-hours' name='runtime-hours' type='number' min='0' max='24' value='{{ runtime.hours }}' placeholder="hours">:
+        <input id='runtime-minutes' name='runtime-minutes' type='number' min='0' max='59' value='{{ runtime.minutes }}' placeholder="minutes"><br>
+        <label for="box_office_revenue">Box Office Revenue</label>
+        <input class="form-control" type="number" id="box_office_revenue" name="box_office_revenue" step="0.01" value="{{ movie.box_office_rev }}"><br>
+        <input class = 'btn btn-success btn-block' type='submit' value = 'Save'>
+        <a href="{% url 'index' %}"><input class = 'btn btn-success btn-block' type='cancel' value = 'Cancel'></a>
+    </form>
+    <table class='table table-striped'>
+        <thead>
+            <tr>
+                <th>Ranking</th>
+                <th>Title</th>
+                <th>Genre</th>
+                <th>Box Office Revenue</th>
+                <th>Rating</th>
+                <th>Runtime</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{movie.ranking}}</td>
+                <td>{{movie.movie_title}}</td>
+                <td>{% for genre in movie.genre.all %}{{genre}} {% endfor %}</td>
+                <td>${{movie.box_office_rev}}</td>
+                <td>{{movie.rating}}</td>
+                <td>{{movie.runtime}}</td>
+                <td><a href="{% url 'editMovie' id=movie.id %}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                <td><a href="{% url 'deleteMovie' id=movie.id %}"><i class="fa-solid fa-trash"></i></a></td>
+            </tr>
+        </tbody>
+    </table>
+
+{% endblock %}
