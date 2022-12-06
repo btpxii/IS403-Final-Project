@@ -1,5 +1,6 @@
 {% extends 'base.html'%}
 {% load static %}
+{% block header-img %}url({% static 'img/movies.jpg' %}){% endblock %}
 {% block content %}
     <form class="form-group" method="POST">
         {% csrf_token %}
